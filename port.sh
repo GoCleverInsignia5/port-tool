@@ -191,7 +191,6 @@ case "$NEXT_CHECK" in
 "t") git clone https://github.com/Dr-Shadow/mtk-tools.git ;;
 "p") . prepare.sh ;;
 "c") CONTINUE_CHECK=x ;;
-"exit") exit 0 ;;
 *) echo -e "\nTry to enter key again" 
 esac
 done
