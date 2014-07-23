@@ -1,4 +1,15 @@
 #!/bin/bash
+function prepare {
+echo -e "\n\t\tRemoving"
+for FILE_TO_REMOVE in `find done` ; do
+  if [ -f $FILE_TO_REMOVE ]; then rm -fr "temp/${FILE_TO_REMOVE}" ; fi
+done
+
+echo -e "\t\tCopying"
+cp -a done/* temp
+
+echo -e "\t\tDone"
+}
 
 echo -e "\nStarting\n"
 
@@ -35,8 +46,8 @@ BASE_DIR="${BASE_FILE%.*}"
 # STEP 2 Checking dirs
 ###############################
 echo -e "Checking dirs and files\n"
-if [ ! -f "${PORT_FILE}" ]; then echo -e "${PORT_FILE} not found\n" ; return 0 ; fi
-if [ ! -f "${BASE_FILE}" ]; then echo -e "${BASE_FILE} not found\n" ; return 0 ; fi
+if [ ! -f "${PORT_FILE}" ]; then echo -e "${PORT_FILE} not found\n" ; exit 1 ; fi
+if [ ! -f "${BASE_FILE}" ]; then echo -e "${BASE_FILE} not found\n" ; exit 1 ; fi
 if [ -d "${BASE_DIR}" ]; then rm -fr "${BASE_DIR}" ; fi
 if [ -d "${PORT_DIR}" ]; then rm -fr "${PORT_DIR}" ; fi
 
@@ -170,6 +181,7 @@ fi
 
 cp -a "${PORT_DIR}/system" "temp/system"
 cp -a "${BASE_DIR}/META-INF" "temp/META-INF"
+cp -a "${PORT_DIR}/data" "temp/data"
 cp "${PORT_DIR}/META-INF/com/google/android/updater-script" "temp/META-INF/com/google/android/updater-script-port"
 cp "${PORT_DIR}/boot.img" "temp/boot.img"
 cp "${BASE_DIR}/system/build.prop" "temp/system/build-base.prop"
@@ -189,9 +201,8 @@ echo -e "\tc\tConinue the script\n"
 read -p "What do you want? " NEXT_CHECK
 case "$NEXT_CHECK" in
 "t") git clone https://github.com/Dr-Shadow/mtk-tools.git ;;
-"p") . prepare.sh ;;
+"p") prepare ;;
 "c") CONTINUE_CHECK=x ;;
-"exit") exit 0 ;;
 *) echo -e "\nTry to enter key again" 
 esac
 done
@@ -200,10 +211,10 @@ echo -e "\nContinuing\n"
 echo -e "Zipping\n"
 READY_ROM="${PORT_DIR}_PORTED"_`date +%Y-%m-%d-%H.%M.%S`
 cd temp
-zip -r ${READY_ROM}.zip system META-INF boot.img &>../log/zipping.log
+zip -r ${READY_ROM}.zip system data META-INF boot.img &>../log/zipping.log
 cd ..
 cp "temp/${READY_ROM}.zip" "${READY_ROM}.zip"
-rm -fr temp
+#rm -fr temp
 echo -e "\tYour ported ROM:\n\t\t\t${READY_ROM}.zip\n"
 
 ###############################

@@ -1,6 +1,6 @@
 ##############################
 SHELL SCRIPT
-AUTO-PORT ver. 0.1.0 RELEASE for device GoClever Insignia 5 on SoC MT6589T 
+AUTO-PORT ver. 0.2.0 RELEASE for device GoClever Insignia 5 on SoC MT6589T 
 by Artur B. aka baran0119 aka Kismajas
 
 ##############################
