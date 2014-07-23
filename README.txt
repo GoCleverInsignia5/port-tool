@@ -4,7 +4,10 @@ AUTO-PORT ver. 0.2.0 RELEASE for device GoClever Insignia 5 on SoC MT6589T
 by Artur B. aka baran0119 aka Kismajas
 
 ##############################
-Now "done" dir if prepare for MIUI ROM (include working boot.img)
+WIP PROJECT - STILL DOESN'T BOOT
+
+##############################
+Now "done" dir if prepare for CM11 (include working boot.img)
 
 ##############################
 Credits:
@@ -13,14 +16,14 @@ Credits:
 ##############################
 Usage:
 
-$ . port.sh "port.zip" "base.zip"
+$ ./port.sh "port.zip" "base.zip"
 base.zip and port.zip are default name of this args
 
 base.zip = ".zip file of base ROM"
 port.zip = ".zip file of ROM to port"
 
 eg. with base.zip as base
-$ . port.sh a1174528.zip 
+$ ./port.sh a1174528.zip 
 
 ##############################
 As base.zip you can use last mYrOM ROM from:
