@@ -1,0 +1,5 @@
+#!/system/bin/sh
+# pyronia - just make it easy for u :) 
+# Thanks to him :)
+
+echo "deadline" > /sys/block/mmcblk0/queue/scheduler

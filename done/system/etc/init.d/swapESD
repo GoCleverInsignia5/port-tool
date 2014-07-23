@@ -1,0 +1,4 @@
+#!/system/bin/sh
+# script by baran0119 aka kismajas
+# Activate swap for GC Insignia 5 from external SD card
+busybox swapon "/dev/block/mmcblk1p3"

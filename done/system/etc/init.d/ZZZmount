@@ -1,0 +1,6 @@
+#!/system/bin/sh
+# echo ---------------------------------
+# echo --- UNMOUNT /system and /data ---
+# echo ---------------------------------
+# mount -ro remount /emmc@android /system
+# mount -ro remount /emmc@usrdata /data

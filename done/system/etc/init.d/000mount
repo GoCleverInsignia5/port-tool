@@ -1,0 +1,6 @@
+#!/system/bin/sh
+echo ---------------------------------
+echo ---- MOUNT /system and /data ----
+echo ---------------------------------
+mount -wo remount /emmc@android /system
+mount -wo remount /emmc@usrdata /data

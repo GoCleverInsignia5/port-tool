@@ -1,0 +1,24 @@
+#!/system/bin/sh
+#  script  by baran0119 aka kismajas
+# Activate swap for GC Insignia 5 from internal SD card
+# fell free too remodding it
+
+if busybox [ ! -f /storage/sdcard1/swap/swapfile.swp ]; 
+then
+    echo "Create Swapfile"
+    mkdir "/storage/sdcard1/swap"
+    busybox dd if="/dev/zero" of="/storage/sdcard1/swap/swapfile.swp" bs=1M count=128
+    mkswap "/storage/sdcard1/swap/swapfile.swp"
+    chmod 0600 "/storage/sdcard1/swap/swapfile.swp"
+else
+    echo "Swapfile Exist"
+fi;
+
+echo "Connect loop devices"
+mknod -m640 /dev/block/loop51 b 7 51
+losetup "/dev/block/loop51" "/storage/sdcard1/swap/swapfile.swp"
+echo "use loopdev for swap"
+swapon "/storage/sdcard1/swap/swapfile.swp"
+echo 60 > /proc/sys/vm/swappiness
+cat /proc/sys/vm/swappiness
+free -m

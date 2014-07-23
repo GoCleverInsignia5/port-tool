@@ -1,0 +1,24 @@
+#!/system/bin/sh
+#  script  by baran0119 aka kismajas
+# fell free too remodding it
+
+busybox echo "Mounting /system"
+busybox mount -wo remount /emmc@android /system
+
+if busybox [ ! -f /system/swap/swapfile.swp ]; then
+    echo "Create Swapfile"
+    mkdir /system/swap
+    busybox dd if="/dev/zero" of="/system/swap/swapfile.swp" bs=1M count=256
+    mkswap /system/swap/swapfile.swp
+    chmod 0600 /system/swap/swapfile.swp
+else
+    echo "Swapfile Exist"
+fi;
+
+echo "connect loop devices"
+mknod -m640 /dev/block/loop52 b 7 52
+losetup /dev/block/loop52 /system/swap/swapfile.swp
+echo "use loopdev for swap"
+swapon /system/swap/swapfile.swp
+
+free -m
